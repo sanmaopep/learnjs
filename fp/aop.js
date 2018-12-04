@@ -1,21 +1,21 @@
 Function.prototype.before = function (fn) {
     var self = this
     return function () {
-        fn.apply(self, self.arguments)
-        self.apply(self, self.arguments)
+        fn.apply(this, arguments)
+        return self.apply(this, arguments)
     }
 }
 
 Function.prototype.after = function (fn) {
     var self = this
     return function () {
-        self.apply(self, self.arguments)
-        fn.apply(self, self.arguments)
+        var ret = self.apply(this, arguments)
+        fn.apply(this, arguments)
+        return ret
     }
 }
 
 var func = function () {
-    console.log(arguments)
     console.log(arguments[1])
 };
 
